@@ -17,7 +17,6 @@
         "homepage": "http://www.hellofrancesco.com",
         "role": "Original Author"
     }],
-
     "autoload": {
         "psr-4": {
             "WolframAlpha\\": "src/"
@@ -31,5 +30,13 @@
 		"phpunit/phpunit": "^7",
         "friendsofphp/php-cs-fixer": "^2.17",
         "brainmaestro/composer-git-hooks": "^2.8"
-	}
+	},
+    "extra": {
+      "hooks": {
+        "pre-commit": [
+          "echo committing as $(git config user.name)",
+          "php-cs-fixer fix ."
+        ]
+      }
+    }
 }
