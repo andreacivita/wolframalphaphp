@@ -1,4 +1,12 @@
-# Wolfram|Alpha PHP Wrapper
+# Wolfram|Alpha PHP Wrapper ( Work In Progress!!! )
+
+This project is a fork of abandoned [francescomalatesta/wolframalphaphp](https://github.com/francescomalatesta/wolframalphaphp) repo.
+
+I will update all this code following new standards and codestyles. 
+
+**THIS CODE IS NOT PRODUCTION-READY**
+
+<hr>
 
 This is a PHP Wrapper for [Wolfram|Alpha](http://wolframalpha.com) APIs (V2), the computational knowledge engine made by Wolfram Research.
 
