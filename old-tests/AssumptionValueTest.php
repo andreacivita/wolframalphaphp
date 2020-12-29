@@ -1,16 +1,16 @@
 <?php
 
-class AssumptionValueTest extends PHPUnit_Framework_TestCase {
+class AssumptionValueTest extends PHPUnit_Framework_TestCase
+{
+    public $assumptionValue;
 
-    var $assumptionValue;
-
-    function prepare()
+    public function prepare()
     {
         $parsedAssumptionXml = new SimpleXMLElement(file_get_contents(dirname(__FILE__)."/xml/assumptions_fragment.xml"));
         $this->assumptionValue = new \WolframAlpha\AssumptionValue($parsedAssumptionXml->assumption[0]->value[0]);
     }
 
-    function testAssumptionValueCreation()
+    public function testAssumptionValueCreation()
     {
         $this->prepare();
         $this->assertInstanceOf('WolframAlpha\\AssumptionValue', $this->assumptionValue);
@@ -18,5 +18,4 @@ class AssumptionValueTest extends PHPUnit_Framework_TestCase {
         $this->assertEquals('a character', $this->assumptionValue->desc);
         $this->assertEquals('*C.e-_*Character-', $this->assumptionValue->input);
     }
-
-} 
+}

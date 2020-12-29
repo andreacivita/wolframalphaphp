@@ -2,15 +2,15 @@
 
 namespace WolframAlpha;
 
-class Image {
-
+class Image
+{
     private $src;
     private $alt;
     private $title;
     private $width;
     private $height;
 
-    function __construct($src, $alt, $title, $width, $height)
+    public function __construct($src, $alt, $title, $width, $height)
     {
         $this->src = $src;
         $this->alt = $alt;
@@ -23,5 +23,4 @@ class Image {
     {
         return isset($this->{$name}) ? $this->{$name} : null;
     }
-
 }

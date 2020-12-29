@@ -8,18 +8,17 @@
 
 namespace WolframAlpha;
 
-class AssumptionValue {
-
-    var $parsedXml;
+class AssumptionValue
+{
+    public $parsedXml;
 
     private $attributes = array();
 
-    function __construct($parsedAssumptionValueXml)
+    public function __construct($parsedAssumptionValueXml)
     {
         $this->parsedXml = $parsedAssumptionValueXml;
 
-        foreach($parsedAssumptionValueXml->attributes() as $key => $value)
-        {
+        foreach ($parsedAssumptionValueXml->attributes() as $key => $value) {
             $this->attributes[$key] = $value->__toString();
         }
     }
@@ -28,5 +27,4 @@ class AssumptionValue {
     {
         return isset($this->attributes[$name]) ? $this->attributes[$name] : null;
     }
-
-} 
+}

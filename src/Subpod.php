@@ -2,22 +2,20 @@
 
 namespace WolframAlpha;
 
-class Subpod {
-
-    var $parsedXml;
+class Subpod
+{
+    public $parsedXml;
 
     private $elements = array();
 
-    function __construct($subpodParsedXml)
+    public function __construct($subpodParsedXml)
     {
         $this->parsedXml = $subpodParsedXml;
 
-        foreach($subpodParsedXml->children() as $key => $element)
-        {
+        foreach ($subpodParsedXml->children() as $key => $element) {
             $value = '';
 
-            switch($key)
-            {
+            switch ($key) {
                 case 'img':
                     $value = new Image(
                         (string)$element->attributes()['src'],
@@ -37,9 +35,8 @@ class Subpod {
         }
     }
 
-    function __get($name)
+    public function __get($name)
     {
         return isset($this->elements[$name]) ? $this->elements[$name] : null;
     }
-
-} 
+}

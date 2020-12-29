@@ -1,17 +1,17 @@
 <?php
 
-class QueryResultTest extends PHPUnit_Framework_TestCase {
+class QueryResultTest extends PHPUnit_Framework_TestCase
+{
+    public $result;
 
-    var $result;
-
-    function testQueryResultCreation()
+    public function testQueryResultCreation()
     {
         $this->prepare('normal');
 
         $this->assertInstanceOf('WolframAlpha\\QueryResult', $this->result);
     }
 
-    function testSuccessfulQueryResult()
+    public function testSuccessfulQueryResult()
     {
         $this->prepare('normal');
 
@@ -19,14 +19,14 @@ class QueryResultTest extends PHPUnit_Framework_TestCase {
         $this->assertEquals(false, $this->result->hasError());
     }
 
-    function testQueryResultWithProblems()
+    public function testQueryResultWithProblems()
     {
         $this->prepare('problems');
 
         $this->assertEquals(true, $this->result->hasProblems());
     }
 
-    function testQueryResultWithErrors()
+    public function testQueryResultWithErrors()
     {
         $this->prepare('errors');
 
@@ -34,7 +34,7 @@ class QueryResultTest extends PHPUnit_Framework_TestCase {
         $this->assertInternalType('array', $this->result->getError());
     }
 
-    function testQueryResultWithWarnings()
+    public function testQueryResultWithWarnings()
     {
         $this->prepare('warnings');
 
@@ -42,7 +42,7 @@ class QueryResultTest extends PHPUnit_Framework_TestCase {
         $this->assertInternalType('array', $this->result->getWarnings());
     }
 
-    function testQueryResultWithAssumptions()
+    public function testQueryResultWithAssumptions()
     {
         $this->prepare('assumptions');
 
@@ -50,7 +50,7 @@ class QueryResultTest extends PHPUnit_Framework_TestCase {
         $this->assertEquals('Chemical', $this->result->assumptions['Clash']->values['Chemical']->name);
     }
 
-    function testQueryResultWithPods()
+    public function testQueryResultWithPods()
     {
         $this->prepare('multiple_pods');
 
@@ -59,7 +59,7 @@ class QueryResultTest extends PHPUnit_Framework_TestCase {
         $this->assertEquals('Input interpretation', $this->result->pods['Input']->title);
     }
 
-    function testQueryResultWithTips()
+    public function testQueryResultWithTips()
     {
         $this->prepare('warnings');
 
@@ -67,7 +67,7 @@ class QueryResultTest extends PHPUnit_Framework_TestCase {
         $this->assertEquals('Check your spelling, and use English', $this->result->getTips()[0]);
     }
 
-    function testQueryResultWithSuggestions()
+    public function testQueryResultWithSuggestions()
     {
         $this->prepare('warnings');
 
@@ -75,11 +75,11 @@ class QueryResultTest extends PHPUnit_Framework_TestCase {
         $this->assertEquals('frances split', $this->result->getSuggestions()[0]);
     }
 
-    function prepare($type)
+    public function prepare($type)
     {
         $this->result = null;
 
-        switch($type){
+        switch ($type) {
             case 'normal':
                 $xml = file_get_contents(dirname(__FILE__)."/xml/normal.xml");
                 break;
@@ -107,5 +107,4 @@ class QueryResultTest extends PHPUnit_Framework_TestCase {
 
         $this->result = new \WolframAlpha\QueryResult($xml);
     }
-
-} 
+}

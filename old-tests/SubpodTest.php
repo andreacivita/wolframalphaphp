@@ -1,23 +1,23 @@
 <?php
 
-class SubpodTest extends PHPUnit_Framework_TestCase {
+class SubpodTest extends PHPUnit_Framework_TestCase
+{
+    public $subpod;
 
-    var $subpod;
-
-    function prepare()
+    public function prepare()
     {
         $parsedXml = new SimpleXMLElement(file_get_contents(dirname(__FILE__)."/xml/normal.xml"));
         $this->subpod = new WolframAlpha\Subpod($parsedXml->pod[0]->subpod);
     }
 
-    function testSubpodCreation()
+    public function testSubpodCreation()
     {
         $this->prepare();
 
         $this->assertInstanceOf('WolframAlpha\\Subpod', $this->subpod);
     }
 
-    function testSubpodElementGet()
+    public function testSubpodElementGet()
     {
         $this->prepare();
 
@@ -26,11 +26,10 @@ class SubpodTest extends PHPUnit_Framework_TestCase {
         $this->assertEquals(128, $this->subpod->img->width);
     }
 
-    function testSubpodElementNotFound()
+    public function testSubpodElementNotFound()
     {
         $this->prepare();
 
         $this->assertNull($this->subpod->idontexsist);
     }
-
-} 
+}

@@ -4,18 +4,17 @@ namespace WolframAlpha\Collections;
 
 use WolframAlpha\Pod;
 
-class PodsCollection implements \ArrayAccess, \Countable {
-
-    var $parsedXml;
+class PodsCollection implements \ArrayAccess, \Countable
+{
+    public $parsedXml;
 
     private $pods = array();
 
-    function __construct($parsedPodsXml)
+    public function __construct($parsedPodsXml)
     {
         $this->parsedXml = $parsedPodsXml;
 
-        foreach($parsedPodsXml as $pod)
-        {
+        foreach ($parsedPodsXml as $pod) {
             $this->pods[(string)$pod->attributes()['id']] = new Pod($pod);
         }
     }

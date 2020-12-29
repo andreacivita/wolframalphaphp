@@ -1,22 +1,22 @@
 <?php
 
-class AssumptionsCollectionTest extends PHPUnit_Framework_TestCase {
+class AssumptionsCollectionTest extends PHPUnit_Framework_TestCase
+{
+    public $assumptionsCollection;
 
-    var $assumptionsCollection;
-
-    function prepare()
+    public function prepare()
     {
         $parsedXml = new SimpleXMLElement(file_get_contents(dirname(__FILE__)."/xml/assumptions.xml"));
         $this->assumptionsCollection = new \WolframAlpha\Collections\AssumptionsCollection($parsedXml->assumptions->assumption);
     }
 
-    function testAssumptionsCollectionCreation()
+    public function testAssumptionsCollectionCreation()
     {
         $this->prepare();
         $this->assertInstanceOf('WolframAlpha\\Collections\\AssumptionsCollection', $this->assumptionsCollection);
     }
 
-    function testAssumptionsCollectionArrayBehavior()
+    public function testAssumptionsCollectionArrayBehavior()
     {
         $this->prepare();
 
@@ -24,7 +24,7 @@ class AssumptionsCollectionTest extends PHPUnit_Framework_TestCase {
         $this->assertInstanceOf('WolframAlpha\\Assumption', $this->assumptionsCollection['Clash']);
     }
 
-    function testAssumptionsCollectionHasMethod()
+    public function testAssumptionsCollectionHasMethod()
     {
         $this->prepare();
 
@@ -32,12 +32,11 @@ class AssumptionsCollectionTest extends PHPUnit_Framework_TestCase {
         $this->assertEquals(false, $this->assumptionsCollection->has('MagalliAssumption'));
     }
 
-    function testAssumptionsCollectionFindMethod()
+    public function testAssumptionsCollectionFindMethod()
     {
         $this->prepare();
 
         $this->assertInstanceOf('WolframAlpha\\Assumption', $this->assumptionsCollection->find('Clash'));
         $this->assertNull($this->assumptionsCollection->find('MagalliAssumption'));
     }
-
-} 
+}

@@ -2,24 +2,22 @@
 
 namespace WolframAlpha;
 
-class Pod {
-
-    var $parsedXml;
-    var $subpods = array();
+class Pod
+{
+    public $parsedXml;
+    public $subpods = array();
 
     private $attributes = array();
 
-    function __construct($podParsedXml)
+    public function __construct($podParsedXml)
     {
         $this->parsedXml = $podParsedXml;
 
-        foreach($podParsedXml->attributes() as $key => $value)
-        {
+        foreach ($podParsedXml->attributes() as $key => $value) {
             $this->attributes[$key] = $value->__toString();
         }
 
-        foreach($podParsedXml->subpod as $subpodParsedXml)
-        {
+        foreach ($podParsedXml->subpod as $subpodParsedXml) {
             $this->subpods[] = new Subpod($subpodParsedXml);
         }
     }
@@ -28,5 +26,4 @@ class Pod {
     {
         return isset($this->attributes[$name]) ? $this->attributes[$name] : null;
     }
-
 }

@@ -5,63 +5,54 @@ namespace WolframAlpha;
 use WolframAlpha\Collections\AssumptionsCollection;
 use WolframAlpha\Collections\PodsCollection;
 
-class QueryResult {
+class QueryResult
+{
+    public $parsedXml;
 
-    var $parsedXml;
+    public $attributes = [];
 
-    var $attributes = [];
+    public $pods = null;
+    public $assumptions = null;
 
-    var $pods = null;
-    var $assumptions = null;
+    public $error = null;
+    public $warnings = null;
 
-    var $error = null;
-    var $warnings = null;
+    public $tips = array();
+    public $suggestions = array();
 
-    var $tips = array();
-    var $suggestions = array();
-
-    function __construct($rawXml)
+    public function __construct($rawXml)
     {
         $this->parsedXml = new \SimpleXMLElement($rawXml);
 
         // populating attributes array
-        foreach($this->parsedXml->attributes() as $key => $value)
-        {
+        foreach ($this->parsedXml->attributes() as $key => $value) {
             $this->attributes[$key] = $value->__toString();
         }
 
         // populating warnings data
-        if(isset($this->parsedXml->warnings))
-        {
-            if(count($this->parsedXml->warnings->children()) > 0)
-            {
+        if (isset($this->parsedXml->warnings)) {
+            if (count($this->parsedXml->warnings->children()) > 0) {
                 $this->warnings = array();
-                foreach($this->parsedXml->warnings->children() as $key => $value)
-                {
+                foreach ($this->parsedXml->warnings->children() as $key => $value) {
                     $this->warnings[$key] = $value->attributes()->text->__toString();
                 }
             }
         }
 
         // populating error data
-        if(isset($this->parsedXml->error))
-        {
+        if (isset($this->parsedXml->error)) {
             $this->error = array('code' => $this->parsedXml->error->code->__toString(), 'message' => $this->parsedXml->error->msg->__toString());
         }
 
         // populating tips and suggestions data
-        if(isset($this->parsedXml->tips))
-        {
-            foreach($this->parsedXml->tips->tip as $tip)
-            {
+        if (isset($this->parsedXml->tips)) {
+            foreach ($this->parsedXml->tips->tip as $tip) {
                 $this->tips[] = (string)$tip->attributes()['text'];
             }
         }
 
-        if(isset($this->parsedXml->didyoumeans))
-        {
-            foreach($this->parsedXml->didyoumeans->didyoumean as $suggestion)
-            {
+        if (isset($this->parsedXml->didyoumeans)) {
+            foreach ($this->parsedXml->didyoumeans->didyoumean as $suggestion) {
                 $this->suggestions[] = (string)$suggestion;
             }
         }
@@ -117,18 +108,15 @@ class QueryResult {
 
     private function populateAssumptions()
     {
-        if(isset($this->parsedXml->assumptions))
-        {
+        if (isset($this->parsedXml->assumptions)) {
             $this->assumptions = new AssumptionsCollection($this->parsedXml->assumptions->assumption);
         }
     }
 
     private function populatePods()
     {
-        if(isset($this->parsedXml->pod))
-        {
+        if (isset($this->parsedXml->pod)) {
             $this->pods = new PodsCollection($this->parsedXml->pod);
         }
     }
-
 }

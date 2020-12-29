@@ -4,18 +4,17 @@ namespace WolframAlpha\Collections;
 
 use WolframAlpha\Assumption;
 
-class AssumptionsCollection implements \ArrayAccess, \Countable {
-
-    var $parsedXml;
+class AssumptionsCollection implements \ArrayAccess, \Countable
+{
+    public $parsedXml;
 
     private $assumptions;
 
-    function __construct($parsedAssumptionsXml)
+    public function __construct($parsedAssumptionsXml)
     {
         $this->parsedXml = $parsedAssumptionsXml;
 
-        foreach($parsedAssumptionsXml as $assumption)
-        {
+        foreach ($parsedAssumptionsXml as $assumption) {
             $this->assumptions[(string)$assumption->attributes()['type']] = new Assumption($assumption);
         }
     }

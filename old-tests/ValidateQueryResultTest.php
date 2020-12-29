@@ -1,17 +1,17 @@
 <?php
 
-class ValidateQueryResultTest extends PHPUnit_Framework_TestCase {
+class ValidateQueryResultTest extends PHPUnit_Framework_TestCase
+{
+    public $result;
 
-    var $result;
-
-    function testValidateQueryResultCreation()
+    public function testValidateQueryResultCreation()
     {
         $this->prepare('validate_query');
 
         $this->assertInstanceOf('WolframAlpha\\ValidateQueryResult', $this->result);
     }
 
-    function testValidateQueryResultAssumptions()
+    public function testValidateQueryResultAssumptions()
     {
         $this->prepare('validate_query');
 
@@ -19,7 +19,7 @@ class ValidateQueryResultTest extends PHPUnit_Framework_TestCase {
         $this->assertEquals(4, count($this->result->assumptions['Clash']->values));
     }
 
-    function testValidateQueryResultWithErrors()
+    public function testValidateQueryResultWithErrors()
     {
         $this->prepare('validate_query_error');
 
@@ -27,7 +27,7 @@ class ValidateQueryResultTest extends PHPUnit_Framework_TestCase {
         $this->assertInternalType('array', $this->result->getError());
     }
 
-    function testValidateQueryResultWithWarnings()
+    public function testValidateQueryResultWithWarnings()
     {
         $this->prepare('validate_query');
 
@@ -35,10 +35,9 @@ class ValidateQueryResultTest extends PHPUnit_Framework_TestCase {
         $this->assertInternalType('array', $this->result->getWarnings());
     }
 
-    function prepare($type)
+    public function prepare($type)
     {
-        switch($type)
-        {
+        switch ($type) {
             case 'validate_query':
                 $xml = file_get_contents(dirname(__FILE__)."/xml/validate_query.xml");
                 break;
@@ -50,5 +49,4 @@ class ValidateQueryResultTest extends PHPUnit_Framework_TestCase {
 
         $this->result = new \WolframAlpha\ValidateQueryResult($xml);
     }
-
 }

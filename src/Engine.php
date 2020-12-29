@@ -2,14 +2,14 @@
 
 namespace WolframAlpha;
 
-class Engine {
-
+class Engine
+{
     private $queryEndpointUrl = 'http://api.wolframalpha.com/v2/query';
     private $validateQueryEndpointUrl = 'http://api.wolframalpha.com/v2/validatequery';
 
     private $appId;
 
-    function __construct($appId)
+    public function __construct($appId)
     {
         $this->appId = $appId;
     }
@@ -33,15 +33,13 @@ class Engine {
         $endpointString = ($type == 'query') ? $this->queryEndpointUrl : $this->validateQueryEndpointUrl;
 
         $formatString = '';
-        if($type == 'query')
-        {
+        if ($type == 'query') {
             $formatString .= '&format=' . implode(',', $format);
         }
 
         $assumptionsQueryString = '';
-        if(count($assumptions) > 0)
-        {
-            foreach ($assumptions as &$assumption){
+        if (count($assumptions) > 0) {
+            foreach ($assumptions as &$assumption) {
                 $assumption = 'assumption=' . $assumption;
             }
 
@@ -55,5 +53,4 @@ class Engine {
     {
         return file_get_contents($requestUrl);
     }
-
 }

@@ -1,24 +1,24 @@
 <?php
 
-class PodsCollectionTest extends PHPUnit_Framework_TestCase {
+class PodsCollectionTest extends PHPUnit_Framework_TestCase
+{
+    public $podCollection;
 
-    var $podCollection;
-
-    function prepare()
+    public function prepare()
     {
         $parsedXml = new SimpleXMLElement(file_get_contents(dirname(__FILE__)."/xml/multiple_pods.xml"));
 
         $this->podCollection = new \WolframAlpha\Collections\PodsCollection($parsedXml->xpath('pod'));
     }
 
-    function testPodsCollectionCreation()
+    public function testPodsCollectionCreation()
     {
         $this->prepare();
 
         $this->assertInstanceOf('WolframAlpha\\Collections\\PodsCollection', $this->podCollection);
     }
 
-    function testPodsCollectionArrayBehavior()
+    public function testPodsCollectionArrayBehavior()
     {
         $this->prepare();
 
@@ -26,7 +26,7 @@ class PodsCollectionTest extends PHPUnit_Framework_TestCase {
         $this->assertEquals(2, count($this->podCollection));
     }
 
-    function testPodsCollectionFindMethod()
+    public function testPodsCollectionFindMethod()
     {
         $this->prepare();
 
@@ -34,12 +34,11 @@ class PodsCollectionTest extends PHPUnit_Framework_TestCase {
         $this->assertNull($this->podCollection->find('VisualData'));
     }
 
-    function testPodsCollectionHasMethod()
+    public function testPodsCollectionHasMethod()
     {
         $this->prepare();
 
         $this->assertEquals(true, $this->podCollection->has('Input'));
         $this->assertEquals(false, $this->podCollection->has('VisualData'));
     }
-
 }
